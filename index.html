@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        .success {
+            color: green;
+            font-size: 1em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username">
+        <span id="usernameError" class="error"></span>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <span id="emailError" class="error"></span>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password">
+        <span id="passwordError" class="error"></span>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+        <span id="phoneError" class="error"></span>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+        <span id="dobError" class="error"></span>
+
+        <input type="submit" value="Register">
+        <div id="formSuccess" class="success"></div>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        // Clear previous error messages
+        document.getElementById('usernameError').textContent = '';
+        document.getElementById('emailError').textContent = '';
+        document.getElementById('passwordError').textContent = '';
+        document.getElementById('phoneError').textContent = '';
+        document.getElementById('dobError').textContent = '';
+        document.getElementById('formSuccess').textContent = '';
+
+        let valid = true;
+
+        // Username validation
+        const username = document.getElementById('username').value;
+        if (username === '') {
+            document.getElementById('usernameError').textContent = 'Username is required.';
+            valid = false;
+        }
+
+        // Email validation
+        const email = document.getElementById('email').value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            valid = false;
+        }
+
+        // Password validation
+        const password = document.getElementById('password').value;
+        if (password.length < 6) {
+            document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+            valid = false;
+        }
+
+        // Phone validation
+        const phone = document.getElementById('phone').value;
+        const phonePattern = /^[0-9]{10}$/;
+        if (!phonePattern.test(phone)) {
+            document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number.';
+            valid = false;
+        }
+
+        // Date of birth validation
+        const dob = document.getElementById('dob').value;
+        if (dob === '') {
+            document.getElementById('dobError').textContent = 'Please enter your date of birth.';
+            valid = false;
+        }
+
+        // If everything is valid
+        if (valid) {
+            document.getElementById('formSuccess').textContent = 'Registration successful!';
+        }
+
+        // Return false to prevent form submission if there are errors
+        return valid;
+    }
+</script>
+
+</body>
+</html>
